@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
+use App\Models\Brand;
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,9 +23,13 @@ Route::post('/category/update/{id}', [CategoryController::class, 'Update']);
 Route::get('/softdelete/category/{id}', [CategoryController::class, 'SoftDelete']);
 Route::get('/category/restore/{id}', [CategoryController::class, 'Restore']);
 Route::get('/pdelete/restore/{id}', [CategoryController::class, 'Pdelete']);
+
+
 Route::get('/', function () {
-    return view('welcome');
+    $brands =  DB::table('brands')->get();
+    return view('home', compact('brands'));
 });
+
 //BRAND ROUTES
 
 Route::get('/brand/all', [BrandController::class, 'AllBrand'])->name('all.brand');
